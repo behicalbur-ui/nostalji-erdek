@@ -1,0 +1,165 @@
+/* ===========================
+   NOSTALJİ ERDEK v0.1
+=========================== */
+
+:root{
+    --primary:#0f4c81;
+    --secondary:#f8f5f0;
+    --accent:#c89b3c;
+    --dark:#222;
+    --light:#fff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--secondary);
+    color:var(--dark);
+}
+
+/* Navbar */
+
+.navbar{
+    background:var(--primary)!important;
+}
+
+.navbar-brand{
+    font-weight:bold;
+    font-size:1.5rem;
+}
+
+/* Hero */
+
+.hero{
+    background:url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80") center center/cover;
+    min-height:70vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    color:white;
+
+    position:relative;
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+}
+
+.hero .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.hero h1{
+
+    font-size:60px;
+
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    font-size:22px;
+
+    margin-bottom:30px;
+
+}
+
+/* Kartlar */
+
+.photo-card{
+
+    border:none;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    background:white;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
+
+}
+
+.photo-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.photo-card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+
+}
+
+.photo-card h5{
+
+    padding:15px;
+
+    margin:0;
+
+}
+
+/* Footer */
+
+footer{
+
+    background:#0f4c81;
+
+    color:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    margin-top:80px;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:36px;
+
+}
+
+.hero p{
+
+font-size:18px;
+
+}
+
+}
