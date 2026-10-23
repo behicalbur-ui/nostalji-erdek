@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function admin() { return request.auth != null && request.auth.token.email == "behicalbur@gmail.com" && request.auth.token.email_verified == true; }
+    match /fotograflar/{id} {
+      allow read: if true;
+      allow create, delete: if admin();
+      allow update: if admin() || (request.auth != null && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes','likedUsers','comments']));
+    }
+    match /mesajlar/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['ad','eposta','mesaj','timestamp']) && request.resource.data.ad.size() <= 100 && request.resource.data.eposta.size() <= 200 && request.resource.data.mesaj.size() <= 2000;
+      allow read, delete: if admin();
+    }
+  }
+}

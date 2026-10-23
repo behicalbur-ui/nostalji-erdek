@@ -1,0 +1,12 @@
+import{auth}from"./firebase.js";
+import{signInWithEmailAndPassword as si,createUserWithEmailAndPassword as cu,updateProfile,GoogleAuthProvider,signInWithPopup,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+const $=id=>document.getElementById(id);let up=false;
+const E={"auth/invalid-credential":"E-posta veya şifre hatalı.","auth/invalid-email":"Geçerli bir e-posta adresi girin.","auth/email-already-in-use":"Bu e-posta adresi zaten kayıtlı. Giriş yapmayı deneyin.","auth/weak-password":"Şifre en az 6 karakter olmalı.","auth/too-many-requests":"Çok fazla deneme yapıldı. Biraz sonra tekrar deneyin.","auth/popup-closed-by-user":"Giriş penceresi kapatıldı."};
+const say=(t,ok)=>{$("msg").textContent=t;$("msg").className="msg "+(ok?"ok":"err")};
+const fail=e=>say(E[e.code]||"İşlem tamamlanamadı. Lütfen tekrar deneyin.");
+const done=()=>{location.href="arsiv.html"};
+$("sw").onclick=()=>{up=!up;$("t").textContent=$("go").textContent=up?"Üye ol":"Giriş yap";$("nameW").classList.toggle("hidden",!up);$("pw").autocomplete=up?"new-password":"current-password";$("sw").textContent=up?"Zaten hesabınız var mı? Giriş yapın":"Hesabınız yok mu? Üye olun";say("")};
+$("f").onsubmit=async e=>{e.preventDefault();$("go").disabled=true;
+try{if(up){const c=await cu(auth,$("email").value,$("pw").value);await updateProfile(c.user,{displayName:$("name").value.trim()||"Üye"})}else await si(auth,$("email").value,$("pw").value);done()}catch(x){fail(x)}finally{$("go").disabled=false}};
+$("g").onclick=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());done()}catch(x){fail(x)}};
+$("rs").onclick=async()=>{const m=$("email").value.trim();if(!m)return say("Önce e-posta adresinizi yazın.");try{await sendPasswordResetEmail(auth,m);say("Sıfırlama bağlantısı e-postanıza gönderildi.",1)}catch(x){fail(x)}};
